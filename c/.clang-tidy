@@ -1,0 +1,23 @@
+# Used by the editor (VS Code and Zed) and by make lint
+Checks: >
+  -*,
+  clang-diagnostic-*,
+  clang-analyzer-*,
+  bugprone-*,
+  -bugprone-easily-swappable-parameters,
+  cert-*-c,
+  -cert-err33-c,
+  misc-*,
+  -misc-include-cleaner,
+  -misc-unused-parameters,
+  -clang-analyzer-security.insecureAPI.strcpy,
+  -clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling
+# VS Code's C/C++ extension doesn't read compile_flags.txt, so its warnings are repeated here
+ExtraArgs:
+  - -Wall
+  - -Wextra
+  - -Wpedantic
+  - -Wshadow
+  - -Wstrict-prototypes
+  - -Wold-style-definition
+  - -Wformat=2

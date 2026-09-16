@@ -1,0 +1,28 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug current file",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/c/build/debug/${fileBasenameNoExtension}",
+      "args": [],
+      "cwd": "${workspaceFolder}/c/build/debug/${fileBasenameNoExtension}.cwd",
+      "stopAtEntry": false,
+      "MIMode": "gdb",
+      "preLaunchTask": "make current file",
+      "setupCommands": [
+        { "text": "-enable-pretty-printing", "ignoreFailures": true },
+        { "text": "-exec-arguments ${input:programArgs}" }
+      ]
+    }
+  ],
+  "inputs": [
+    {
+      "id": "programArgs",
+      "type": "promptString",
+      "description": "Program arguments and input redirection, e.g. foo bar < input.txt (leave empty for none)",
+      "default": ""
+    }
+  ]
+}

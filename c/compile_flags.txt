@@ -1,0 +1,9 @@
+-xc
+-std=c11
+-Wall
+-Wextra
+-Wpedantic
+-Wshadow
+-Wstrict-prototypes
+-Wold-style-definition
+-Wformat=2

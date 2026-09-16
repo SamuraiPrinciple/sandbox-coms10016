@@ -1,0 +1,3 @@
+# Haskell code style for Fourmolu, used when you save a file and by fourmolu -i
+# Run fourmolu --print-defaults to see every option
+indentation: 4

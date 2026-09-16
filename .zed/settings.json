@@ -1,0 +1,13 @@
+{
+  "format_on_save": "on",
+  "languages": {
+    "Haskell": {
+      "formatter": {
+        "external": {
+          "command": "fourmolu",
+          "arguments": ["--quiet", "--stdin-input-file", "{buffer_path}"]
+        }
+      }
+    }
+  }
+}

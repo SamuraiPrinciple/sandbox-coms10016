@@ -1,0 +1,25 @@
+{
+  "C_Cpp.codeAnalysis.clangTidy.enabled": true,
+  "C_Cpp.debugShortcut": false,
+  "[c]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools",
+    "editor.formatOnSave": true
+  },
+  "[haskell]": {
+    "editor.defaultFormatter": "jkillian.custom-local-formatters",
+    "editor.formatOnSave": true
+  },
+  "customLocalFormatters.formatters": [
+    {
+      "command": "fourmolu --quiet --stdin-input-file \"${file}\"",
+      "languages": ["haskell"]
+    }
+  ],
+  "debug.onTaskErrors": "abort",
+  "editor.rulers": [80],
+  "files.exclude": {
+    "**/*.d": true
+  },
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true
+}

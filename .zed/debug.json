@@ -1,0 +1,14 @@
+[
+  {
+    "label": "C: debug current file",
+    "adapter": "GDB",
+    "request": "launch",
+    "build": {
+      "command": "sh",
+      "args": [".vscode/make-current-file.sh", "$ZED_RELATIVE_FILE"],
+      "cwd": "$ZED_WORKTREE_ROOT"
+    },
+    "program": "$ZED_WORKTREE_ROOT/c/build/debug/$ZED_STEM",
+    "cwd": "$ZED_WORKTREE_ROOT/c/build/debug/$ZED_STEM.cwd"
+  }
+]

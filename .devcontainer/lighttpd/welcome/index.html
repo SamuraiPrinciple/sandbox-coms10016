@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COMS10016 Sandbox</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%235e5086'/><path d='M30 34l18 16-18 16M54 68h18' fill='none' stroke='white' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<style>
+  /* Purple is Haskell's GitHub colour and matches the VS Code title bar; grey is C's */
+  :root {
+    --bg: #f6f5fa;
+    --surface: #ffffff;
+    --border: #e4e1ec;
+    --text: #1d1b26;
+    --muted: #6a6680;
+    --accent: #5e5086;
+    --accent-strong: #4b3f6e;
+    --accent-soft: #efecf6;
+    --on-accent: #ffffff;
+    --code-bg: #f1eff6;
+    --c: #555555;
+    --haskell: #5e5086;
+    --shadow: 0 1px 2px rgb(40 30 70 / 5%), 0 4px 16px rgb(40 30 70 / 6%);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111018;
+      --surface: #1a1824;
+      --border: #2c2939;
+      --text: #ebe9f2;
+      --muted: #a29eb8;
+      --accent: #b3a5e8;
+      --accent-strong: #cdc3f2;
+      --accent-soft: #262236;
+      --on-accent: #16141f;
+      --code-bg: #24212f;
+      --c: #9a9a9a;
+      --haskell: #b3a5e8;
+      --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 4px 16px rgb(0 0 0 / 25%);
+      color-scheme: dark;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  main {
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 4rem 1rem 3rem;
+  }
+
+  header { margin-bottom: 2.25rem; }
+  .eyebrow {
+    display: inline-block;
+    margin: 0 0 .9rem;
+    padding: .25rem .7rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: .8rem;
+    font-weight: 600;
+  }
+  h1 {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: -.025em;
+  }
+  .lede { margin: .7rem 0 0; max-width: 36rem; color: var(--muted); font-size: 1.125rem; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .wide { grid-column: 1 / -1; }
+  @media (max-width: 720px) {
+    .grid { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+  }
+  .card h2 {
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    margin: 0 0 .35rem;
+    font-size: 1.1rem;
+    letter-spacing: -.01em;
+  }
+  .card > p { margin: 0; color: var(--muted); }
+  .icon {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-bottom: .9rem;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  .icon svg { width: 1.2rem; height: 1.2rem; }
+  .dot { width: .7rem; height: .7rem; border-radius: 50%; flex: none; }
+  .dot.c { background: var(--c); }
+  .dot.haskell { background: var(--haskell); }
+
+  .button {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    margin-top: auto;
+    padding: .65rem 1.1rem;
+    border-radius: 10px;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color .15s, color .15s;
+  }
+  .card > p + .button { margin-top: 1.25rem; }
+  .button.secondary { background: var(--accent-soft); color: var(--accent); }
+  .button:hover { background: var(--accent-strong); color: var(--on-accent); }
+  .button svg { width: 1rem; height: 1rem; transition: transform .15s; }
+  .button:hover svg { transform: translateX(2px); }
+  a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  @media (max-width: 720px) {
+    .steps { grid-template-columns: minmax(0, 1fr); }
+  }
+  .step { padding: 1rem 1.1rem; border-radius: 12px; background: var(--code-bg); }
+  .step h3 {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin: 0 0 .5rem;
+    font-size: .95rem;
+  }
+  pre {
+    margin: 0;
+    overflow-x: auto;
+    font: .9rem/1.7 ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  .prompt { color: var(--muted); user-select: none; }
+  .keys { white-space: nowrap; }
+  kbd {
+    padding: .05em .4em;
+    border: 1px solid var(--border);
+    border-bottom-width: 2px;
+    border-radius: 6px;
+    background: var(--surface);
+    font: .85em ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  .links { list-style: none; margin: .6rem -.6rem -.4rem; padding: 0; }
+  .links a {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: .75rem;
+    padding: .6rem;
+    border-radius: 10px;
+    color: inherit;
+    text-decoration: none;
+    transition: background-color .15s;
+  }
+  .links a:hover { background: var(--accent-soft); }
+  .links strong { font-weight: 600; }
+  .links span { grid-column: 1; color: var(--muted); font-size: .9rem; }
+  .links svg {
+    grid-row: 1 / 3;
+    grid-column: 2;
+    align-self: center;
+    width: 1rem;
+    height: 1rem;
+    color: var(--muted);
+    transition: color .15s, transform .15s;
+  }
+  .links a:hover svg { color: var(--accent); transform: translate(2px, -2px); }
+
+  footer { margin-top: 2rem; color: var(--muted); font-size: .875rem; text-align: center; }
+  footer code { font: .95em ui-monospace, "SF Mono", Menlo, monospace; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">COMS10016 · Imperative &amp; Functional Programming</p>
+    <h1>Welcome to your sandbox</h1>
+    <p class="lede">C and Haskell are installed and ready to go. Here's where to find everything.</p>
+  </header>
+
+  <div class="grid">
+    <section class="card">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <h2>Desktop</h2>
+      <p>Programs that open windows, such as SDL2 graphics, appear here. Click <strong>Connect</strong> when it opens.</p>
+      <a class="button" href="https://vnc.coms10016.local">
+        Open the desktop
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg>
+      </a>
+    </section>
+
+    <section class="card">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>
+      </div>
+      <h2>Course site</h2>
+      <p>Week-by-week slides, videos and labs for this year's unit.</p>
+      <a class="button secondary" href="https://uob-coms10016.github.io/2026/" target="_blank" rel="noopener">
+        Open the course site
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 13l6-6M8 7h5v5"/></svg>
+      </a>
+    </section>
+
+    <section class="card wide">
+      <h2>Getting started</h2>
+      <p>Open a terminal in VS Code with <span class="keys"><kbd>Ctrl</kbd> <kbd>`</kbd></span> and try each language.</p>
+      <div class="steps">
+        <div class="step">
+          <h3><span class="dot c" aria-hidden="true"></span>C</h3>
+<pre><span class="prompt">$ </span>cd c
+<span class="prompt">$ </span>make run</pre>
+        </div>
+        <div class="step">
+          <h3><span class="dot haskell" aria-hidden="true"></span>Haskell</h3>
+<pre><span class="prompt">$ </span>cd haskell
+<span class="prompt">$ </span>ghci Hello.hs</pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><span class="dot c" aria-hidden="true"></span>C reference</h2>
+      <ul class="links">
+        <li><a href="https://en.cppreference.com/c" target="_blank" rel="noopener">
+          <strong>cppreference</strong><span>The C standard library, function by function</span>
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 13l6-6M8 7h5v5"/></svg>
+        </a></li>
+        <li><a href="https://wiki.libsdl.org/SDL2/FrontPage" target="_blank" rel="noopener">
+          <strong>SDL2</strong><span>Windows, drawing and input for graphics work</span>
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 13l6-6M8 7h5v5"/></svg>
+        </a></li>
+        <li><a href="https://valgrind.org/docs/manual/quick-start.html" target="_blank" rel="noopener">
+          <strong>Valgrind quick start</strong><span>Making sense of make memcheck</span>
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 13l6-6M8 7h5v5"/></svg>
+        </a></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2><span class="dot haskell" aria-hidden="true"></span>Haskell reference</h2>
+      <ul class="links">
+        <li><a href="https://hoogle.haskell.org" target="_blank" rel="noopener">
+          <strong>Hoogle</strong><span>Find functions by name or by type</span>
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 13l6-6M8 7h5v5"/></svg>
+        </a></li>
+        <li><a href="https://hackage.haskell.org/package/QuickCheck" target="_blank" rel="noopener">
+          <strong>QuickCheck</strong><span>Testing properties with random inputs</span>
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 13l6-6M8 7h5v5"/></svg>
+        </a></li>
+        <li><a href="https://downloads.haskell.org/ghc/9.14.1/docs/users_guide/" target="_blank" rel="noopener">
+          <strong>GHC user guide</strong><span>For GHC 9.14.1, the installed version</span>
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 13l6-6M8 7h5v5"/></svg>
+        </a></li>
+      </ul>
+    </section>
+  </div>
+
+  <footer>More details in <code>README.md</code>, in the workspace folder.</footer>
+</main>
+</body>
+</html>

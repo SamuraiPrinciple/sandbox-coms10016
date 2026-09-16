@@ -1,0 +1,7 @@
+{
+  "id": "lighttpd",
+  "version": "1.0.0",
+  "name": "lighttpd",
+  "description": "lighttpd on port 80, serving NAME.coms10016.local hosts: services in the container and a welcome page",
+  "entrypoint": "/usr/local/share/lighttpd-init.sh"
+}

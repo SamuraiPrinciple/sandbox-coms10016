@@ -1,0 +1,7 @@
+# Tells the Haskell Language Server how to load files in this folder. Naming
+# QuickCheck lets "Evaluate..." run code that uses it, and files here can
+# import each other. For a subfolder whose files import each other, copy this
+# file into that subfolder
+cradle:
+  direct:
+    arguments: ["-package", "QuickCheck"]

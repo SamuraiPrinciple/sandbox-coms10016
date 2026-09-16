@@ -1,0 +1,7 @@
+{
+  "id": "desktop",
+  "version": "1.0.0",
+  "name": "Desktop fixes",
+  "description": "Opens LXTerminal instead of Tilix, which crashes on this image, from the desktop-lite menu",
+  "installsAfter": ["ghcr.io/devcontainers/features/desktop-lite"]
+}

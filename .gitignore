@@ -1,0 +1,18 @@
+build/
+# Programs built in c/projects/ and haskell/ have no extension: keep only files with one, and Makefiles
+c/projects/**/*
+!c/projects/**/
+!c/projects/**/*.*
+!c/projects/**/Makefile
+haskell/**/*
+!haskell/**/
+!haskell/**/*.*
+*.o
+*.hi
+*.dyn_hi
+*.dyn_o
+dist-newstyle/
+*.d
+a.out
+core
+vgcore.*

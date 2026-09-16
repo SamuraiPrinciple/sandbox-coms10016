@@ -1,0 +1,60 @@
+{
+  "name": "COMS10016 Devcontainer Sandbox",
+  "containerEnv": {
+    "DEVCONTAINER": "true",
+    "VNC_RESOLUTION": "1600x1200x24"
+  },
+  "securityOpt": ["seccomp=${localWorkspaceFolder}/.devcontainer/seccomp.json"],
+  "mounts": [
+    "source=${devcontainerId}-home,target=/home/vscode,type=volume"
+  ],
+  "features": {
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "noVncVersion": "1.6.0",
+      "webPort": "6080",
+      "vncPort": "5901"
+    },
+    "./desktop": {},
+    "./lighttpd": {}
+  },
+  "customizations": {
+    "zed": {
+      "extensions": ["haskell", "make"]
+    },
+    "vscode": {
+      "settings": {
+        "C_Cpp.clang_format_path": "/usr/bin/clang-format",
+        "chat.disableAIFeatures": true,
+        "editor.formatOnSave": true,
+        "extensions.ignoreRecommendations": true,
+        "haskell.formattingProvider": "none",
+        "haskell.manageHLS": "PATH",
+        "livePreview.useIntegratedBrowser": true,
+        "simpleBrowser.useIntegratedBrowser": true,
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.hideOnStartup": "never",
+        "terminal.integrated.profiles.linux": {
+          "zsh": { "path": "zsh" }
+        },
+        "workbench.browser.dataStorage": "workspace",
+        "workbench.browser.openLocalhostLinks": true,
+        "workbench.colorCustomizations": {
+          "titleBar.activeBackground": "#5e5086",
+          "titleBar.activeForeground": "#ffffff",
+          "titleBar.inactiveBackground": "#453b63",
+          "titleBar.inactiveForeground": "#ffffff"
+        }
+      },
+      "extensions": [
+        "-ms-vscode.cmake-tools",
+        "haskell.haskell",
+        "jkillian.custom-local-formatters",
+        "ms-vscode.cpptools",
+        "ms-vscode.hexeditor",
+        "usernamehw.errorlens"
+      ]
+    }
+  },
+  "build": { "dockerfile": "Dockerfile" },
+  "runArgs": ["--label=dev.orbstack.domains=*.coms10016.local", "--label=dev.orbstack.http-port=80"]
+}

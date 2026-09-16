@@ -1,0 +1,35 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build or run current file",
+      "type": "shell",
+      "command": "sh",
+      "args": [".vscode/build-current-file.sh", "${relativeFile}"],
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": {
+        "base": "$gcc",
+        "fileLocation": ["search", { "include": ["${fileDirname}"] }]
+      }
+    },
+    {
+      "label": "make current file",
+      "type": "shell",
+      "command": "sh",
+      "args": [".vscode/make-current-file.sh", "${relativeFile}"],
+      "problemMatcher": {
+        "base": "$gcc",
+        "fileLocation": ["search", { "include": ["${fileDirname}"] }]
+      }
+    },
+    {
+      "label": "GHCi: current file",
+      "type": "shell",
+      "command": "ghci",
+      "args": ["${fileBasename}"],
+      "options": { "cwd": "${fileDirname}" },
+      "presentation": { "focus": true },
+      "problemMatcher": []
+    }
+  ]
+}
